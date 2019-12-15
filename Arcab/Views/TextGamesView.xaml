@@ -1,0 +1,3070 @@
+<!--
+Theme: Arcab
+Developed by: Emulga
+Published: Saturday 14, December 2019 @ 10:43 PM
+-->
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:cal="http://www.caliburnproject.org"
+		
+	xmlns:transitions="clr-namespace:Unbroken.LaunchBox.Wpf.Transitions;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:coverFlow="clr-namespace:Unbroken.LaunchBox.Wpf.Controls.CoverFlow;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:bigBox="clr-namespace:Unbroken.LaunchBox.Wpf;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:controls="clr-namespace:Unbroken.LaunchBox.Wpf.Controls;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:videos="clr-namespace:Unbroken.LaunchBox.Wpf.BigBox.Controls;assembly=BigBox"
+	xmlns:wpf="clr-namespace:Unbroken.LaunchBox.Wpf;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:gif="clr-namespace:WpfAnimatedGif;assembly=Unbroken.LaunchBox.Wpf"
+	xmlns:aop="clr-namespace:Ao.Bigbox.Plugins;assembly=Ao.Bigbox.Themer"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:HelperControl="clr-namespace:HelperControl;assembly=HelperControl_v4"
+	xmlns:lbsc="clr-namespace:ListBoxScrollCenterNS;assembly=ListBoxScrollCenterNS"
+	xmlns:community="clr-namespace:COMMUNITYconverters;assembly=COMMUNITYtcfbb_002"
+	xmlns:commc="clr-namespace:COMMUNITY_Controls;assembly=COMMUNITY_Controls"
+		
+	mc:Ignorable="d"
+	d:DesignHeight="3840" d:DesignWidth="2160" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource UserControlStyle}">
+		
+	<UserControl.Resources>
+		<wpf:RemoveNewLineConverter                 x:Key="RemoveNewLineConverter" />
+		<community:ReturnXElements                  x:Key="ReturnXElements"/>
+		<community:ReturnElementXImagePath 			x:Key="ReturnElementXImagePath"/>
+		<community:TextToDouble 					x:Key="TextToDouble"/>
+		<community:TextToBrush     					x:Key="TextToBrush"/>
+		<community:FormatDateTime 					x:Key="FormatDateTime"/>
+		<community:SetTextFontSize                  x:Key="SetTextFontSize"/>
+		<community:CurrentDateTime 					x:Key="CurrentDateTime"/>
+		<community:UseValueOrFallbackValue			x:Key="UseValueOrFallbackValue"/>
+		<community:Element1Text 					x:Key="Element1Text"/>
+		<community:Element2Text 					x:Key="Element2Text"/>
+		<community:Element3Text 					x:Key="Element3Text"/>
+		<community:Element4Text 					x:Key="Element4Text"/>
+		<community:BatteryStatus 					x:Key="BatteryStatus"/>
+		<community:FileOrFallbackFile               x:Key="FileOrFallbackFile"/>
+		<community:ScalePropertyValue               x:Key="ScalePropertyValue"/>
+		<community:GetMediaFileName                 x:Key="GetMediaFileName"/>
+		<community:ReturnTrueOrFalseValue           x:Key="ReturnTrueOrFalseValue"/>
+		<community:CenterOf                         x:Key="CenterOf"/>
+			
+		
+		<!-- TextListView -->
+		<Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
+			<Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ListBoxItem}">
+						<Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"
+							Padding="12, 4, 12, 6" SnapsToDevicePixels="True">
+							<ContentPresenter HorizontalAlignment="Stretch"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Content="{TemplateBinding Content}"
+								ContentStringFormat="{TemplateBinding ContentStringFormat}"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								SnapsToDevicePixels="True" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="IsMouseOver" Value="True" />
+								</MultiTrigger.Conditions>
+								<Setter TargetName="Bd" Property="Background" Value="#004e7200" />
+								<Setter TargetName="Bd" Property="BorderBrush" Value="#004e7200" />
+							</MultiTrigger>
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="Selector.IsSelectionActive" Value="False" />
+									<Condition Property="IsSelected" Value="True" />
+								</MultiTrigger.Conditions>
+								<Setter TargetName="Bd" Property="Background" Value="#004e72" />
+								<Setter TargetName="Bd" Property="BorderBrush" Value="#004e72" />
+							</MultiTrigger>
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="Selector.IsSelectionActive" Value="True" />
+									<Condition Property="IsSelected" Value="True" />
+								</MultiTrigger.Conditions>
+								<Setter TargetName="Bd" Property="Background" Value="#FFFFFF" />
+								<Setter TargetName="Bd" Property="BorderBrush" Value="#FFFFFF" />
+							</MultiTrigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
+		
+		<Style x:Key="ListBoxStyle" TargetType="ListBox">
+			<Setter Property="ItemContainerStyle" Value="{DynamicResource ListBoxItemStyle}" />
+			<Setter Property="BorderBrush" Value="Transparent" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Foreground" Value="{Binding Source=#FFffffff, Converter={StaticResource TextToBrush}}" />
+			<Setter Property="Opacity" Value="1.0" />
+			<Setter Property="FontFamily" Value="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" />
+			<Setter Property="FontWeight" Value="Normal" />
+			<Setter Property="FontStyle" Value="Normal" />
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		</Style>
+	</UserControl.Resources>
+		
+	<!-- VIEW START -->
+	<Grid Name="Canvas" >
+			
+		<!-- MAIN GRID -->
+		<Grid Height="{Binding ElementName=Canvas, Path=ActualHeight}" Width="{Binding ElementName=Canvas, Path=ActualWidth}">
+			<Grid.Background>
+				<SolidColorBrush Color="Black" Opacity="{Binding BackgroundFade}" />
+			</Grid.Background>
+				
+			<Grid.RowDefinitions>
+				<RowDefinition Height="100*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100*" />
+			</Grid.ColumnDefinitions>
+				
+			<!-- Get Property Values -->
+			<Grid x:Name="Properties">
+				<TextBlock x:Name="Prop_Background_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;background.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;480;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;1440;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;1080;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_SelectedItemVideo_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_SelectedItemVideo_X"/>
+							<Binding Path="Text" ElementName="Prop_SelectedItemVideo_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_SelectedItemVideo_Y"/>
+							<Binding Path="Text" ElementName="Prop_SelectedItemVideo_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_SelectedItemVideo_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_SelectedItemVideo_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_SelectedItemVideo_OpacityMaskFileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="OpacityMaskFileName;scanlines.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image2_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;scanlines_horiz.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image2_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image2_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image2_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image4_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;panel_bg_1px.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image4_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image4_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image4_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;464;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;1920;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;140;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Rectangle1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Rectangle1_X"/>
+							<Binding Path="Text" ElementName="Prop_Rectangle1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Rectangle1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Rectangle1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Rectangle1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Rectangle1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Rectangle1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;sidebar_shadow.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;480;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;100;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;1080;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image3_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Image3_X"/>
+							<Binding Path="Text" ElementName="Prop_Image3_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Image3_Y"/>
+							<Binding Path="Text" ElementName="Prop_Image3_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image3_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image3_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image3_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;panel_bg_1px.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;480;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;1080;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Image1_X"/>
+							<Binding Path="Text" ElementName="Prop_Image1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Image1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Image1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Image1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Image1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_UserDefinedVideo1_FileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="FileName;texture.mp4;;pack://siteoforigin:,,,/Themes/Arcab/Media/Videos"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_UserDefinedVideo1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_UserDefinedVideo1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_UserDefinedVideo1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_UserDefinedVideo1_OpacityMaskFileName" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource GetMediaFileName}">
+							<Binding Path="." Source="OpacityMaskFileName;mask-side.png;;pack://siteoforigin:,,,/Themes/Arcab/Media/Images"/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+							<Binding Path="." Source=" "/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;480;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;1080;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Wheel_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;26;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;600;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;94;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;455;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;624;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_BoxArt_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_BoxArt_X"/>
+							<Binding Path="Text" ElementName="Prop_BoxArt_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_BoxArt_Y"/>
+							<Binding Path="Text" ElementName="Prop_BoxArt_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_BoxArt_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_BoxArt_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_BoxArt_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;10;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;785;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;795;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;97;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;139;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ESRB_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_ESRB_X"/>
+							<Binding Path="Text" ElementName="Prop_ESRB_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_ESRB_Y"/>
+							<Binding Path="Text" ElementName="Prop_ESRB_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ESRB_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ESRB_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ESRB_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;907;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;795;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;736;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;213;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_TextScroller1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_TextScroller1_X"/>
+							<Binding Path="Text" ElementName="Prop_TextScroller1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_TextScroller1_Y"/>
+							<Binding Path="Text" ElementName="Prop_TextScroller1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_TextScroller1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_TextScroller1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;24;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_V" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="V;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_TextScroller1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1282;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;215;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;426;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Developer1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Developer1_X"/>
+							<Binding Path="Text" ElementName="Prop_Developer1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Developer1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Developer1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Developer1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Developer1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Developer1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;215;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;170;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text1_X"/>
+							<Binding Path="Text" ElementName="Prop_Text1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;255;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;155;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text2_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text2_X"/>
+							<Binding Path="Text" ElementName="Prop_Text2_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text2_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text2_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text2_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text2_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text2_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1280;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;255;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;437;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Publisher1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Publisher1_X"/>
+							<Binding Path="Text" ElementName="Prop_Publisher1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Publisher1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Publisher1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Publisher1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Publisher1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Publisher1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;295;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;207;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text3_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text3_X"/>
+							<Binding Path="Text" ElementName="Prop_Text3_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text3_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text3_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text3_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text3_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text3_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1325;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;295;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;384;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ReleaseDate1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_ReleaseDate1_X"/>
+							<Binding Path="Text" ElementName="Prop_ReleaseDate1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_ReleaseDate1_Y"/>
+							<Binding Path="Text" ElementName="Prop_ReleaseDate1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ReleaseDate1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_ReleaseDate1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_ReleaseDate1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;356;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;32;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayModeImage_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayModeImage_X"/>
+							<Binding Path="Text" ElementName="Prop_PlayModeImage_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayModeImage_Y"/>
+							<Binding Path="Text" ElementName="Prop_PlayModeImage_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayModeImage_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayModeImage_HorizontalSpacing" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="HorizontalSpacing;0;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_VerticalSpacing" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="VerticalSpacing;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayModeImage_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1148;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;355;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;601;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayMode1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayMode1_X"/>
+							<Binding Path="Text" ElementName="Prop_PlayMode1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayMode1_Y"/>
+							<Binding Path="Text" ElementName="Prop_PlayMode1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayMode1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayMode1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayMode1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;395;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;100;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text4_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text4_X"/>
+							<Binding Path="Text" ElementName="Prop_Text4_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text4_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text4_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text4_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text4_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text4_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1220;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;395;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;491;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Genre1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Genre1_X"/>
+							<Binding Path="Text" ElementName="Prop_Genre1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Genre1_Y"/>
+							<Binding Path="Text" ElementName="Prop_Genre1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Genre1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Genre1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Genre1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;490;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;171;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text5_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text5_X"/>
+							<Binding Path="Text" ElementName="Prop_Text5_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text5_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text5_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text5_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text5_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text5_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1300;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;490;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;419;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayCount1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayCount1_X"/>
+							<Binding Path="Text" ElementName="Prop_PlayCount1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_PlayCount1_Y"/>
+							<Binding Path="Text" ElementName="Prop_PlayCount1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayCount1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_PlayCount1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_PlayCount1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;530;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;187;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text6_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text6_X"/>
+							<Binding Path="Text" ElementName="Prop_Text6_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Text6_Y"/>
+							<Binding Path="Text" ElementName="Prop_Text6_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text6_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Text6_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Text6_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1303;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;530;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;384;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;40;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_LastPlayedDate1_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_LastPlayedDate1_X"/>
+							<Binding Path="Text" ElementName="Prop_LastPlayedDate1_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_LastPlayedDate1_Y"/>
+							<Binding Path="Text" ElementName="Prop_LastPlayedDate1_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_LastPlayedDate1_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_LastPlayedDate1_FontSize" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="FontSize;32;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_LastPlayedDate1_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1107;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;160;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;357;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;35;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_CommunityRating_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_CommunityRating_X"/>
+							<Binding Path="Text" ElementName="Prop_CommunityRating_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_CommunityRating_Y"/>
+							<Binding Path="Text" ElementName="Prop_CommunityRating_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_CommunityRating_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_CommunityRating_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_CommunityRating_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1798;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;30;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;95;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;95;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Completed_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Completed_X"/>
+							<Binding Path="Text" ElementName="Prop_Completed_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Completed_Y"/>
+							<Binding Path="Text" ElementName="Prop_Completed_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Completed_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Completed_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Completed_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1798;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;30;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;95;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;95;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Favorite_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Favorite_X"/>
+							<Binding Path="Text" ElementName="Prop_Favorite_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Favorite_Y"/>
+							<Binding Path="Text" ElementName="Prop_Favorite_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Favorite_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Favorite_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Favorite_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_X" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="X;1798;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_Y" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="Y;30;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_W" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="W;95;1920"/>
+							<Binding Path="ActualWidth" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_H" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="H;95;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_Angle" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Broken_CenterX" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Broken_X"/>
+							<Binding Path="Text" ElementName="Prop_Broken_W"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_CenterY" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource CenterOf}">
+							<Binding Path="Text" ElementName="Prop_Broken_Y"/>
+							<Binding Path="Text" ElementName="Prop_Broken_H"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="Prop_Broken_SkewAngleX" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Broken_SkewAngleY" Text="0" Visibility="Collapsed" />
+				<TextBlock x:Name="Prop_Broken_EffectShadowDepth" Visibility="Collapsed">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ScalePropertyValue}">
+							<Binding Path="." Source="EffectShadowDepth;0;1080"/>
+							<Binding Path="ActualHeight" ElementName="Canvas"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+			</Grid>
+			<!-- end of properties -->
+			
+			
+			<!-- Background -->
+			<Grid Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="9" Opacity="1.0" Panel.ZIndex="0" >
+				<commc:UCVideo Source="{Binding ElementName=Prop_Background_FileName, Path=Text}" Stretch="Fill" IsMuted="True" >
+					<commc:UCVideo.Effect>
+						<BlurEffect Radius="10" RenderingBias="Performance" />
+					</commc:UCVideo.Effect>
+				</commc:UCVideo>
+				
+			</Grid>
+			
+			<!-- Video -->
+			<Grid x:Name="SelectedItemVideoVideoCanvas" Width="{Binding ElementName=Prop_SelectedItemVideo_W, Path=Text}" Height="{Binding ElementName=Prop_SelectedItemVideo_H, Path=Text}" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="10" >
+				<transitions:TransitionPresenter x:Name="SelectedItemVideo" Width="{Binding ElementName=Prop_SelectedItemVideo_W, Path=Text}" Height="{Binding ElementName=Prop_SelectedItemVideo_H, Path=Text}" TransitionSelector="{Binding ImageVideoTransitionSelector}" Content="{Binding ImageVideoView}"  StretchVideo="True" IsContentVideo="True" Opacity="1.0" >
+					<transitions:TransitionPresenter.Effect>
+						<BlurEffect Radius="40" RenderingBias="Performance" />
+					</transitions:TransitionPresenter.Effect>
+					
+				</transitions:TransitionPresenter >
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_SelectedItemVideo_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_SelectedItemVideo_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_SelectedItemVideo_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_SelectedItemVideo_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_SelectedItemVideo_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_SelectedItemVideo_X, Path=Text}" CenterY="{Binding ElementName=Prop_SelectedItemVideo_Y, Path=Text}" AngleX="{Binding ElementName=Prop_SelectedItemVideo_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_SelectedItemVideo_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Scanlines -->
+			<Grid x:Name="Image2" Panel.ZIndex="20" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Image x:Name="Image2img" Grid.Row="0" Grid.Column="0" Source="{Binding ElementName=Prop_Image2_FileName, Path=Text}"
+					Width="{Binding ElementName=Canvas, Path=ActualWidth}"
+					Height="{Binding ElementName=Canvas, Path=ActualHeight}"
+					Stretch="Uniform" HorizontalAlignment="Right"
+					VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Opacity="0.1"
+					RenderTransformOrigin=".5,.5" >
+					<Image.RenderTransform>
+						<TransformGroup>
+							<RotateTransform Angle="0" />
+							<ScaleTransform ScaleX="1" />
+							<ScaleTransform ScaleY="1" />
+						</TransformGroup>
+					</Image.RenderTransform>
+						
+						
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Image2_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Image2_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Image2_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Image2_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Image2_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Image2_X, Path=Text}" CenterY="{Binding ElementName=Prop_Image2_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Image2_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Image2_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Dim -->
+			<Grid x:Name="Image4" Panel.ZIndex="30" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Image x:Name="Image4img" Grid.Row="0" Grid.Column="0" Source="{Binding ElementName=Prop_Image4_FileName, Path=Text}"
+					Width="{Binding ElementName=Canvas, Path=ActualWidth}"
+					Height="{Binding ElementName=Canvas, Path=ActualHeight}"
+					Stretch="Fill" HorizontalAlignment="Left"
+					VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Opacity="0.6"
+					RenderTransformOrigin=".5,.5" >
+					<Image.RenderTransform>
+						<TransformGroup>
+							<RotateTransform Angle="0" />
+							<ScaleTransform ScaleX="1" />
+							<ScaleTransform ScaleY="1" />
+						</TransformGroup>
+					</Image.RenderTransform>
+						
+						
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Image4_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Image4_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Image4_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Image4_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Image4_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Image4_X, Path=Text}" CenterY="{Binding ElementName=Prop_Image4_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Image4_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Image4_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Rectangle -->
+			<Grid x:Name="Rectangle1" Panel.ZIndex="40" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<Rectangle Height="{Binding ElementName=Prop_Rectangle1_H, Path=Text}" Width="{Binding ElementName=Prop_Rectangle1_W, Path=Text}" Fill="{Binding Source=Black, Converter={StaticResource TextToBrush}}" Opacity="0.5">
+					
+				</Rectangle>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Rectangle1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Rectangle1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Rectangle1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Rectangle1_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Rectangle1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Rectangle1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Rectangle1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Rectangle1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Rectangle1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Side Shadow -->
+			<Grid x:Name="Image3" Panel.ZIndex="70" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Image x:Name="Image3img" Grid.Row="0" Grid.Column="0" Source="{Binding ElementName=Prop_Image3_FileName, Path=Text}"
+					Width="{Binding ElementName=Prop_Image3_W, Path=Text}"
+					Height="{Binding ElementName=Prop_Image3_H, Path=Text}"
+					Stretch="Fill" HorizontalAlignment="Left"
+					VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Opacity="1.0"
+					RenderTransformOrigin=".5,.5" >
+					<Image.RenderTransform>
+						<TransformGroup>
+							<RotateTransform Angle="0" />
+							<ScaleTransform ScaleX="1" />
+							<ScaleTransform ScaleY="1" />
+						</TransformGroup>
+					</Image.RenderTransform>
+						
+						
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Image3_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Image3_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Image3_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Image3_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Image3_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Image3_X, Path=Text}" CenterY="{Binding ElementName=Prop_Image3_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Image3_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Image3_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Panel -->
+			<Grid x:Name="Image1" Panel.ZIndex="80" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Image x:Name="Image1img" Grid.Row="0" Grid.Column="0" Source="{Binding ElementName=Prop_Image1_FileName, Path=Text}"
+					Width="{Binding ElementName=Prop_Image1_W, Path=Text}"
+					Height="{Binding ElementName=Prop_Image1_H, Path=Text}"
+					Stretch="Fill" HorizontalAlignment="Left"
+					VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Opacity="1.0"
+					RenderTransformOrigin=".5,.5" >
+					<Image.RenderTransform>
+						<TransformGroup>
+							<RotateTransform Angle="0" />
+							<ScaleTransform ScaleX="1" />
+							<ScaleTransform ScaleY="1" />
+						</TransformGroup>
+					</Image.RenderTransform>
+						
+						
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Image1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Image1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Image1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Image1_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Image1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Image1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Image1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Image1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Image1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Texture -->
+			<Grid x:Name="UserDefinedVideo1" Width="{Binding ElementName=Canvas, Path=ActualWidth}" Height="{Binding ElementName=Canvas, Path=ActualHeight}" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="80" >
+				<commc:UCVideo x:Name="UserDefinedVideo1mp4" Width="{Binding ElementName=UserDefinedVideo1, Path=ActualWidth}" Height="{Binding ElementName=UserDefinedVideo1, Path=ActualHeight}"
+					Stretch="Fill" Opacity="0.25"
+					Source="{Binding ElementName=Prop_UserDefinedVideo1_FileName, Path=Text}"
+					IsMuted="True" >
+					
+					<commc:UCVideo.OpacityMask>
+						<ImageBrush ImageSource="{Binding ElementName=Prop_UserDefinedVideo1_OpacityMaskFileName, Path=Text}" Stretch="Fill"/>
+					</commc:UCVideo.OpacityMask>
+				</commc:UCVideo>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_UserDefinedVideo1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_UserDefinedVideo1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_UserDefinedVideo1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_UserDefinedVideo1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_UserDefinedVideo1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_UserDefinedVideo1_X, Path=Text}" CenterY="{Binding ElementName=Prop_UserDefinedVideo1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_UserDefinedVideo1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_UserDefinedVideo1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Wheel -->
+			<Grid x:Name="SelectorText" Panel.ZIndex="90" >
+				<Grid.RowDefinitions>
+					<RowDefinition  Height="{Binding ElementName=Prop_Wheel_H, Path=Text}" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="{Binding ElementName=Prop_Wheel_W, Path=Text}" />
+				</Grid.ColumnDefinitions>
+					
+				<transitions:TransitionPresenter x:Name="FlowControl" Grid.Row="0" Grid.Column="0" Opacity="1.0" Content="{Binding ListView}" >
+				</transitions:TransitionPresenter>
+				
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Wheel_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Wheel_Y, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Box Art -->
+			<Grid x:Name="BoxArt" Panel.ZIndex="100" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="BoxArtIMGfilename" Text="{Binding ActiveGame.Box3DImagePath}" Visibility="Collapsed" />
+				<TextBlock x:Name="BoxArtIMGfilenamewithfallback" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource FileOrFallbackFile}">
+							<Binding Path="Text" ElementName="BoxArtIMGfilename"/>
+							<Binding Path="."    Source="pack://siteoforigin:,,,/Themes/Arcab/Media/"/>
+							<Binding Path="."    Source=""/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				
+				<Image x:Name="BoxArtIMG" Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_BoxArt_W, Path=Text}" Height="{Binding ElementName=Prop_BoxArt_H, Path=Text}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Opacity="1.0"
+					Source="{Binding ElementName=BoxArtIMGfilenamewithfallback,Path=Text}">
+					<Image.Effect>
+						<DropShadowEffect BlurRadius="25" Color="{Binding Source=Black, Converter={StaticResource TextToBrush}}" Direction="300" Opacity="0.8" ShadowDepth="{Binding ElementName=Prop_BoxArt_EffectShadowDepth, Path=Text}" RenderingBias="Performance"  />
+					</Image.Effect>
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_BoxArt_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_BoxArt_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_BoxArt_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_BoxArt_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_BoxArt_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_BoxArt_X, Path=Text}" CenterY="{Binding ElementName=Prop_BoxArt_Y, Path=Text}" AngleX="{Binding ElementName=Prop_BoxArt_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_BoxArt_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- ESRB -->
+			<Grid x:Name="ESRB" Panel.ZIndex="110" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="variableESRB" Text="{Binding Path=ActiveGame.Rating}" Visibility="Collapsed" />
+				<TextBlock x:Name="ESRBvariablewithfallbacklogic" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource UseValueOrFallbackValue}">
+							<Binding Path="Text" ElementName="variableESRB" />
+							<Binding Path="."    Source="Not Rated.png" />
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="ESRBimg" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0}/{1:F1}.png">
+							<Binding Path="."    Source="pack://siteoforigin:,,,/Themes/Arcab/Media/ESRB"/>
+							<Binding Path="Text" ElementName="ESRBvariablewithfallbacklogic"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				
+				<Image x:Name="ESRBIMAGE"  Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_ESRB_W, Path=Text}" Height="{Binding ElementName=Prop_ESRB_H, Path=Text}" Opacity="1.0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" VerticalAlignment="Top"
+					Source="{Binding ElementName=ESRBimg, Path=Text}">
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_ESRB_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_ESRB_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_ESRB_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_ESRB_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_ESRB_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_ESRB_X, Path=Text}" CenterY="{Binding ElementName=Prop_ESRB_Y, Path=Text}" AngleX="{Binding ElementName=Prop_ESRB_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_ESRB_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Description -->
+			<Grid Panel.ZIndex="120" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<Rectangle VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Opacity="0" Fill="{Binding Source=Black, Converter={StaticResource TextToBrush}}" Height="{Binding ElementName=Prop_TextScroller1_H, Path=Text}" Width="{Binding ElementName=Prop_TextScroller1_W, Path=Text}" >
+				</Rectangle>
+				
+				<Grid x:Name="TextScroller1_Vertical">
+					<Viewbox  Grid.Row="0" Grid.Column="0">
+						<DockPanel Height="{Binding ElementName=Prop_TextScroller1_H, Path=Text}"  Width="{Binding ElementName=Prop_TextScroller1_W, Path=Text}" HorizontalAlignment="Center"  >
+							<Canvas Name="TextScroller1_VScrollingTextBlockCanvas"  Canvas.Left="{Binding ElementName=Prop_TextScroller1_X, Path=Text}" ClipToBounds="True"  >
+								<controls:ScrollableTextBlock x:Name="TextScroller1_Vertical_ScrollText" LineStackingStrategy="BlockLineHeight" TextAlignment="Justify" FontSize="{Binding ElementName=Prop_TextScroller1_FontSize, Path=Text}" FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2"  Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0" TextWrapping="Wrap" Width="{Binding ElementName=Prop_TextScroller1_W, Path=Text}" ScrollBeginDelay="6" ScrollSpeed="100" ScrollAutoReverse="True" ScrollEndDelay="6" ReverseScrollSpeed="0.5" ScrollDirection="Up"
+									Text="{Binding Path=ActiveGame.Notes}" >
+									
+								</controls:ScrollableTextBlock>
+							</Canvas>
+						</DockPanel>
+					</Viewbox>
+				</Grid>
+				
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_TextScroller1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_TextScroller1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_TextScroller1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_TextScroller1_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_TextScroller1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_TextScroller1_X, Path=Text}" CenterY="{Binding ElementName=Prop_TextScroller1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_TextScroller1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_TextScroller1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Developer Text -->
+			<Grid x:Name="Developer1" Panel.ZIndex="130"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Developer1_H, Path=Text}" >
+						<TextBlock x:Name="variableDeveloper1"
+							Width="{Binding ElementName=Prop_Developer1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Developer1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="{Binding Path=ActiveGame.Developer}" VerticalAlignment="Center">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Developer1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Developer1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Developer1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Developer1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Developer1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Developer1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Developer1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Developer1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Developer1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Developer Value -->
+			<Grid x:Name="Text1" Panel.ZIndex="140"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text1_H, Path=Text}" >
+						<TextBlock x:Name="Text1text"
+							Width="{Binding ElementName=Prop_Text1_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Developer:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text1_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Publisher Text -->
+			<Grid x:Name="Text2" Panel.ZIndex="150"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text2_H, Path=Text}" >
+						<TextBlock x:Name="Text2text"
+							Width="{Binding ElementName=Prop_Text2_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text2_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Publisher:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text2_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text2_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text2_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text2_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text2_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text2_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text2_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text2_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text2_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Publisher Value -->
+			<Grid x:Name="Publisher1" Panel.ZIndex="160"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Publisher1_H, Path=Text}" >
+						<TextBlock x:Name="variablePublisher1"
+							Width="{Binding ElementName=Prop_Publisher1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Publisher1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="{Binding Path=ActiveGame.Publisher}" VerticalAlignment="Top">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Publisher1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Publisher1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Publisher1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Publisher1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Publisher1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Publisher1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Publisher1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Publisher1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Publisher1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Release Date Text -->
+			<Grid x:Name="Text3" Panel.ZIndex="170"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text3_H, Path=Text}" >
+						<TextBlock x:Name="Text3text"
+							Width="{Binding ElementName=Prop_Text3_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text3_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Release Date:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text3_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text3_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text3_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text3_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text3_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text3_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text3_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text3_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text3_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Release Date Value -->
+			<Grid x:Name="ReleaseDate1" Panel.ZIndex="180"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="variableReleaseDate1" Text="{Binding Path=ActiveGame.ReleaseDate}" Visibility="Collapsed"/>
+				<TextBlock x:Name="variableReleaseDate1Formatted" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource FormatDateTime}">
+							<Binding Path="Text" ElementName="variableReleaseDate1" />
+							<Binding Path="."    Source="" />
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="variableReleaseDate1withfallbacklogic" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource UseValueOrFallbackValue}">
+							<Binding Path="Text" ElementName="variableReleaseDate1Formatted" />
+							<Binding Path="."    Source="Unknown"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+					
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_ReleaseDate1_H, Path=Text}" >
+						<TextBlock x:Name="ReleaseDate1date"
+							Width="{Binding ElementName=Prop_ReleaseDate1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_ReleaseDate1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							VerticalAlignment="Top"
+							Text="{Binding ElementName=variableReleaseDate1withfallbacklogic, Path=Text}">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_ReleaseDate1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_ReleaseDate1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_ReleaseDate1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_ReleaseDate1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_ReleaseDate1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_ReleaseDate1_X, Path=Text}" CenterY="{Binding ElementName=Prop_ReleaseDate1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_ReleaseDate1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_ReleaseDate1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Play Mode Image -->
+			<Grid x:Name="PlayModeImage" Panel.ZIndex="190"  >
+				<Grid.RowDefinitions>
+					<RowDefinition  Height="{Binding ElementName=Prop_PlayModeImage_H, Path=Text}" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="{Binding ElementName=Prop_PlayModeImage_W, Path=Text}" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="variablePlayModeImage" Text="{Binding Path=ActiveGame.PlayMode}" Visibility="Collapsed" />
+				<TextBlock x:Name="PlayModeImagewithfallbacklogic" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource UseValueOrFallbackValue}">
+							<Binding Path="Text" ElementName="variablePlayModeImage" />
+							<Binding Path="."    Source="Unknown"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="PlayModeImageString" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnXElements}">
+							<Binding Path="Text"  ElementName="PlayModeImagewithfallbacklogic"/>
+							<Binding Path="."     Source=""/>
+							<Binding Path="."     Source=";"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source=";"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<!-- Spacing -->
+				<TextBlock x:Name="PlayModeImageVertOnly" Visibility="Collapsed" >
+					<TextBlock.Text >
+						<MultiBinding StringFormat="{}0,{1},0,{1}">
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_HorizontalSpacing" />
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_VerticalSpacing" />
+						</MultiBinding>
+					</TextBlock.Text >
+				</TextBlock>
+				<TextBlock x:Name="PlayModeImageVertLeftOnly" Visibility="Collapsed" >
+					<TextBlock.Text >
+						<MultiBinding StringFormat="{}{0},{1},0,{1}">
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_HorizontalSpacing" />
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_VerticalSpacing" />
+						</MultiBinding>
+					</TextBlock.Text >
+				</TextBlock>
+				<TextBlock x:Name="PlayModeImageHorizOnly" Visibility="Collapsed" >
+					<TextBlock.Text >
+						<MultiBinding StringFormat="{}{0},0,{0},0">
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_HorizontalSpacing" />
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_VerticalSpacing" />
+						</MultiBinding>
+					</TextBlock.Text >
+				</TextBlock>
+				<TextBlock x:Name="PlayModeImageHorizTopOnly" Visibility="Collapsed" >
+					<TextBlock.Text >
+						<MultiBinding StringFormat="{}{0},{1},{0},0">
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_HorizontalSpacing" />
+							<Binding Path="Text"          ElementName="Prop_PlayModeImage_VerticalSpacing" />
+						</MultiBinding>
+					</TextBlock.Text >
+				</TextBlock>
+				
+				<!-- Element 1 -->
+				<TextBlock x:Name="PlayModeImagePath1" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnElementXImagePath}">
+							<Binding Path="Text"  ElementName="PlayModeImageString"/>
+							<Binding Path="."     Source=";"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source="0"/>
+							<Binding Path="."     Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Playmode Single"/>
+							<Binding Path="."     Source=""/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<!-- Element 2 -->
+				<TextBlock x:Name="PlayModeImagePath2" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnElementXImagePath}">
+							<Binding Path="Text"  ElementName="PlayModeImageString"/>
+							<Binding Path="."     Source=";"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Playmode Single"/>
+							<Binding Path="."     Source=""/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<!-- Element 3 -->
+				<TextBlock x:Name="PlayModeImagePath3" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnElementXImagePath}">
+							<Binding Path="Text"  ElementName="PlayModeImageString"/>
+							<Binding Path="."     Source=";"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source="2"/>
+							<Binding Path="."     Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Playmode Single"/>
+							<Binding Path="."     Source=""/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<!-- Element 4 -->
+				<TextBlock x:Name="PlayModeImagePath4" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnElementXImagePath}">
+							<Binding Path="Text"  ElementName="PlayModeImageString"/>
+							<Binding Path="."     Source=";"/>
+							<Binding Path="."     Source="1"/>
+							<Binding Path="."     Source="3"/>
+							<Binding Path="."     Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Playmode Single"/>
+							<Binding Path="."     Source=""/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				
+				<StackPanel Orientation="Vertical" HorizontalAlignment="Center"  VerticalAlignment="Bottom">
+					<!-- Image 1 -->
+					<Image x:Name="PlayModeImage1" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+						Source="{Binding ElementName=PlayModeImagePath1,Path=Text}" Margin="{Binding ElementName=PlayModeImageHorizOnly,Path=Text}" >
+						<Image.Style>
+							<Style TargetType="Image">
+								<Setter Property="Visibility" Value="Visible" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage1, Path=Source}" Value="{x:Null}" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage1, Path=Width}" Value="0" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Image.Style>
+						
+					</Image>
+					<!-- Image 2 -->
+					<Image x:Name="PlayModeImage2" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+						Source="{Binding ElementName=PlayModeImagePath2,Path=Text}" Margin="{Binding ElementName=PlayModeImageHorizTopOnly,Path=Text}" >
+						<Image.Style>
+							<Style TargetType="Image">
+								<Setter Property="Visibility" Value="Visible" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage2, Path=Source}" Value="{x:Null}" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage2, Path=Width}" Value="0" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Image.Style>
+						
+					</Image>
+					<!-- Image 3 -->
+					<Image x:Name="PlayModeImage3" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+						Source="{Binding ElementName=PlayModeImagePath3,Path=Text}" Margin="{Binding ElementName=PlayModeImageHorizTopOnly,Path=Text}" >
+						<Image.Style>
+							<Style TargetType="Image">
+								<Setter Property="Visibility" Value="Visible" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage3, Path=Source}" Value="{x:Null}" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage3, Path=Width}" Value="0" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Image.Style>
+						
+					</Image>
+					<!-- Image 4 -->
+					<Image x:Name="PlayModeImage4" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+						Source="{Binding ElementName=PlayModeImagePath4,Path=Text}" Margin="{Binding ElementName=PlayModeImageHorizTopOnly,Path=Text}" >
+						<Image.Style>
+							<Style TargetType="Image">
+								<Setter Property="Visibility" Value="Visible" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage4, Path=Source}" Value="{x:Null}" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding ElementName=PlayModeImage4, Path=Width}" Value="0" >
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Image.Style>
+						
+					</Image>
+				</StackPanel>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_PlayModeImage_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_PlayModeImage_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_PlayModeImage_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_PlayModeImage_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_PlayModeImage_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_PlayModeImage_X, Path=Text}" CenterY="{Binding ElementName=Prop_PlayModeImage_Y, Path=Text}" AngleX="{Binding ElementName=Prop_PlayModeImage_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_PlayModeImage_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Play Mode Value -->
+			<Grid x:Name="PlayMode1" Panel.ZIndex="200"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_PlayMode1_H, Path=Text}" >
+						<TextBlock x:Name="variablePlayMode1" Text="{Binding Path=ActiveGame.PlayMode}" Visibility="Collapsed" />
+						<TextBlock x:Name="PlayMode1String" Visibility="Collapsed" >
+							<TextBlock.Text>
+								<MultiBinding Converter="{StaticResource ReturnXElements}">
+									<Binding Path="Text"  ElementName="variablePlayMode1"/>
+									<Binding Path="."     Source="Unknown"/>
+									<Binding Path="."     Source=";"/>
+									<Binding Path="."     Source="1"/>
+									<Binding Path="."     Source=", "/>
+								</MultiBinding>
+							</TextBlock.Text>
+						</TextBlock>
+						
+						<TextBlock x:Name="PlayMode1Text"
+							Width="{Binding ElementName=Prop_PlayMode1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_PlayMode1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="{Binding ElementName=PlayMode1String, Path=Text}" VerticalAlignment="Top">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_PlayMode1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_PlayMode1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_PlayMode1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_PlayMode1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_PlayMode1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_PlayMode1_X, Path=Text}" CenterY="{Binding ElementName=Prop_PlayMode1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_PlayMode1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_PlayMode1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Genre Text -->
+			<Grid x:Name="Text4" Panel.ZIndex="210"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text4_H, Path=Text}" >
+						<TextBlock x:Name="Text4text"
+							Width="{Binding ElementName=Prop_Text4_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text4_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Genre:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text4_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text4_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text4_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text4_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text4_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text4_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text4_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text4_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text4_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Genre Value -->
+			<Grid x:Name="Genre1" Panel.ZIndex="220"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Genre1_H, Path=Text}" >
+						<TextBlock x:Name="variableGenre1" Text="{Binding Path=ActiveGame.GenresString}" Visibility="Collapsed" />
+						<TextBlock x:Name="Genre1String" Visibility="Collapsed" >
+							<TextBlock.Text>
+								<MultiBinding Converter="{StaticResource ReturnXElements}">
+									<Binding Path="Text"  ElementName="variableGenre1"/>
+									<Binding Path="."     Source="Unknown"/>
+									<Binding Path="."     Source=";"/>
+									<Binding Path="."     Source="1"/>
+									<Binding Path="."     Source=", "/>
+								</MultiBinding>
+							</TextBlock.Text>
+						</TextBlock>
+						
+						<TextBlock x:Name="Genre1Text"
+							Width="{Binding ElementName=Prop_Genre1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Genre1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="{Binding ElementName=Genre1String, Path=Text}" VerticalAlignment="Top">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Genre1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Genre1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Genre1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Genre1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Genre1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Genre1_X, Path=Text}" CenterY="{Binding ElementName=Prop_Genre1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Genre1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Genre1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Play Count Text -->
+			<Grid x:Name="Text5" Panel.ZIndex="230"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text5_H, Path=Text}" >
+						<TextBlock x:Name="Text5text"
+							Width="{Binding ElementName=Prop_Text5_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text5_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Play Count:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text5_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text5_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text5_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text5_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text5_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text5_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text5_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text5_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text5_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Play Count Value -->
+			<Grid x:Name="PlayCount1" Panel.ZIndex="240"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_PlayCount1_H, Path=Text}" >
+						<TextBlock x:Name="variablePlayCount1"
+							Width="{Binding ElementName=Prop_PlayCount1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_PlayCount1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="{Binding Path=ActiveGame.PlayCount}" VerticalAlignment="Top">
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_PlayCount1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_PlayCount1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_PlayCount1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_PlayCount1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_PlayCount1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_PlayCount1_X, Path=Text}" CenterY="{Binding ElementName=Prop_PlayCount1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_PlayCount1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_PlayCount1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Last Played Text -->
+			<Grid x:Name="Text6" Panel.ZIndex="250"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_Text6_H, Path=Text}" >
+						<TextBlock x:Name="Text6text"
+							Width="{Binding ElementName=Prop_Text6_W, Path=Text}"
+							Foreground="{Binding Source=H:0:White:1:LightGray:1:DimGray:1:Black, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_Text6_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							VerticalAlignment="Top" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							Text="Last Played:" >
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Text6_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Text6_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Text6_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Text6_CenterY, Path=Text}"  Angle="{Binding ElementName=Prop_Text6_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Text6_X, Path=Text}" CenterY="{Binding ElementName=Prop_Text6_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Text6_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Text6_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Last Played Value -->
+			<Grid x:Name="LastPlayedDate1" Panel.ZIndex="260"  >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="variableLastPlayedDate1" Text="{Binding Path=ActiveGame.LastPlayedDate}" Visibility="Collapsed"/>
+				<Viewbox Grid.Row="0" Grid.Column="0" Height="Auto">
+					<Grid Height="{Binding ElementName=Prop_LastPlayedDate1_H, Path=Text}" >
+						<TextBlock x:Name="LastPlayedDate1date"
+							Width="{Binding ElementName=Prop_LastPlayedDate1_W, Path=Text}"
+							Foreground="{Binding Source=White, Converter={StaticResource TextToBrush}}" Opacity="1.0"
+							FontFamily="LAUNCHBOX_ROOT_FOLDER/Themes/Arcab/Fonts/Exo2-Bold.ttf#Exo 2" FontSize="{Binding ElementName=Prop_LastPlayedDate1_FontSize, Path=Text}" FontStyle="Normal" FontWeight="Normal"
+							TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="None"
+							VerticalAlignment="{Binding ElementName=Prop_LastPlayedDate1_VerticalAlignment, Path=Text}"  >
+							<TextBlock.Text>
+								<MultiBinding Converter="{StaticResource FormatDateTime}">
+									<Binding Path="Text" ElementName="variableLastPlayedDate1" />
+									<Binding Path="."    Source="dd-MM-yyyy" />
+								</MultiBinding>
+							</TextBlock.Text>
+							
+						</TextBlock>
+					</Grid>
+				</Viewbox>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_LastPlayedDate1_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_LastPlayedDate1_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_LastPlayedDate1_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_LastPlayedDate1_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_LastPlayedDate1_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_LastPlayedDate1_X, Path=Text}" CenterY="{Binding ElementName=Prop_LastPlayedDate1_Y, Path=Text}" AngleX="{Binding ElementName=Prop_LastPlayedDate1_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_LastPlayedDate1_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Community Rating -->
+			<Grid x:Name="CommunityRating" Panel.ZIndex="270" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBlock x:Name="CommunityRatingIMG" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0}/{1:F1}.png">
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Rating Single"/>
+							<Binding Path="ActiveGame.CommunityStarRating" />
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<Image x:Name="CommunityRatingIMAGE" Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_CommunityRating_W, Path=Text}" Height="{Binding ElementName=Prop_CommunityRating_H, Path=Text}" Opacity="1.0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+					HorizontalAlignment="Left" VerticalAlignment="Top"
+					Source="{Binding ElementName=CommunityRatingIMG, Path=Text}">
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_CommunityRating_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_CommunityRating_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_CommunityRating_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_CommunityRating_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_CommunityRating_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_CommunityRating_X, Path=Text}" CenterY="{Binding ElementName=Prop_CommunityRating_Y, Path=Text}" AngleX="{Binding ElementName=Prop_CommunityRating_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_CommunityRating_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Completed -->
+			<Grid x:Name="Completed" Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="9" Panel.ZIndex="280" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="COMPLETEDimgpath" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnTrueOrFalseValue}">
+							<Binding Path="ActiveGame.Completed" />
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\completed-round.png"/>
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\fallback.png"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<Image x:Name="COMPLETEDimg" Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_Completed_W, Path=Text}" Height="{Binding ElementName=Prop_Completed_H, Path=Text}" Opacity="1.0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" VerticalAlignment="Top"
+					Source="{Binding ElementName=COMPLETEDimgpath, Path=Text}">
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Completed_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Completed_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Completed_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Completed_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Completed_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Completed_X, Path=Text}" CenterY="{Binding ElementName=Prop_Completed_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Completed_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Completed_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Favorite -->
+			<Grid x:Name="Favorite" Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="9" Panel.ZIndex="290" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="FAVORITEimgpath" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnTrueOrFalseValue}">
+							<Binding Path="ActiveGame.Favorite" />
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\favorite-round.png"/>
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\fallback.png"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<Image x:Name="FAVORITEimg" Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_Favorite_W, Path=Text}" Height="{Binding ElementName=Prop_Favorite_H, Path=Text}" Opacity="1.0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" VerticalAlignment="Top"
+					Source="{Binding ElementName=FAVORITEimgpath, Path=Text}">
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Favorite_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Favorite_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Favorite_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Favorite_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Favorite_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Favorite_X, Path=Text}" CenterY="{Binding ElementName=Prop_Favorite_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Favorite_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Favorite_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+			
+			<!-- Broken -->
+			<Grid x:Name="Broken" Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="9" Panel.ZIndex="300" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				
+				<TextBlock x:Name="Brokenimgpath" Visibility="Collapsed" >
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource ReturnTrueOrFalseValue}">
+							<Binding Path="ActiveGame.Broken" />
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\broken-round.png"/>
+							<Binding Path="." Source="pack://siteoforigin:,,,/Themes/Arcab/Media/Images\fallback.png"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<Image x:Name="Brokenimg" Grid.Row="0" Grid.Column="0" Width="{Binding ElementName=Prop_Broken_W, Path=Text}" Height="{Binding ElementName=Prop_Broken_H, Path=Text}" Opacity="1.0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" VerticalAlignment="Top"
+					Source="{Binding ElementName=Brokenimgpath, Path=Text}">
+					
+				</Image>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<TranslateTransform X="{Binding ElementName=Prop_Broken_X, Path=Text}" />
+						<TranslateTransform Y="{Binding ElementName=Prop_Broken_Y, Path=Text}" />
+						<RotateTransform CenterX="{Binding ElementName=Prop_Broken_CenterX, Path=Text}" CenterY="{Binding ElementName=Prop_Broken_CenterY, Path=Text}" Angle="{Binding ElementName=Prop_Broken_Angle, Path=Text}" />
+						<SkewTransform   CenterX="{Binding ElementName=Prop_Broken_X, Path=Text}" CenterY="{Binding ElementName=Prop_Broken_Y, Path=Text}" AngleX="{Binding ElementName=Prop_Broken_SkewAngleX, Path=Text}" AngleY="{Binding ElementName=Prop_Broken_SkewAngleY, Path=Text}" />
+					</TransformGroup>
+				</Grid.RenderTransform>
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>
